@@ -1,0 +1,12 @@
+D:\6 Develope\USBDevicesApp\USBDevices\bin\Debug\net8.0-windows\USBDevices.deps.json
+D:\6 Develope\USBDevicesApp\USBDevices\bin\Debug\net8.0-windows\USBDevices.dll
+D:\6 Develope\USBDevicesApp\USBDevices\bin\Debug\net8.0-windows\USBDevices.pdb
+D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\USBDevices.csproj.AssemblyReference.cache
+D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\USBDevices.GeneratedMSBuildEditorConfig.editorconfig
+D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\USBDevices.AssemblyInfoInputs.cache
+D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\USBDevices.AssemblyInfo.cs
+D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\USBDevices.csproj.CoreCompileInputs.cache
+D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\USBDevices.dll
+D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\refint\USBDevices.dll
+D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\USBDevices.pdb
+D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\ref\USBDevices.dll

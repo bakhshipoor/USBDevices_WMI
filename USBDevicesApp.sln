@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34601.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "USBDevicesLibrary", "USBDevicesLibrary\USBDevicesLibrary.csproj", "{AC55A3EF-D1C7-40EC-99DF-AC21B14507DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "USBDeviceDemo", "USBDeviceDemo\USBDeviceDemo.csproj", "{1DA83838-5530-463B-9EE6-DEE1B08BE265}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{30FD8687-5184-4D82-B5EE-005295B89FE0}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC55A3EF-D1C7-40EC-99DF-AC21B14507DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC55A3EF-D1C7-40EC-99DF-AC21B14507DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC55A3EF-D1C7-40EC-99DF-AC21B14507DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC55A3EF-D1C7-40EC-99DF-AC21B14507DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA83838-5530-463B-9EE6-DEE1B08BE265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA83838-5530-463B-9EE6-DEE1B08BE265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA83838-5530-463B-9EE6-DEE1B08BE265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA83838-5530-463B-9EE6-DEE1B08BE265}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45C8E548-AA1A-47F3-B939-C7DB1635081C}
+	EndGlobalSection
+EndGlobal
