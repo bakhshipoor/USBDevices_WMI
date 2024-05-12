@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "BJ3FgOM981YpO1N4hnVqR4Pz21+CcVEHLoymxKk3532biunhq+fvl2xmP9s+I8wjFnUgnQbzGbyvjo7LXAyD5g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\hbakh\\Source\\Repos\\bakhshipoor\\USBDevices\\USBDeviceDemo\\USBDeviceDemo.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\hbakh\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\hbakh\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\hbakh\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
+    "C:\\Users\\hbakh\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
+    "C:\\Users\\hbakh\\.nuget\\packages\\system.management\\8.0.0\\system.management.8.0.0.nupkg.sha512",
+    "C:\\Users\\hbakh\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}

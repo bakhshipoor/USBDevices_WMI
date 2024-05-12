@@ -20,7 +20,7 @@ public class ThreadSafeDictionary<TKey, TValue> : ConcurrentDictionary<TKey, TVa
         bool response = base.TryAdd(key, value);
         if (response) 
         {
-            OnCollectionChanged(action: NotifyCollectionChangedAction.Add, changedItem: new KeyValuePair<TKey, TValue>(key, value));
+            OnCollectionChanged(action: NotifyCollectionChangedAction.Add, changedItem: new KeyValuePair<TKey, TValue?>(key, value));
         }
         return response;
     }
@@ -30,7 +30,7 @@ public class ThreadSafeDictionary<TKey, TValue> : ConcurrentDictionary<TKey, TVa
         bool response = base.TryRemove(item: item);
         if (response)
         {
-            OnCollectionChanged(action: NotifyCollectionChangedAction.Remove, changedItem: item);
+            OnCollectionChanged(action: NotifyCollectionChangedAction.Remove, changedItem: new KeyValuePair<TKey, TValue?>(item.Key, item.Value));
         }
         return response;
     }
@@ -40,14 +40,14 @@ public class ThreadSafeDictionary<TKey, TValue> : ConcurrentDictionary<TKey, TVa
         bool response = base.TryRemove(key, out value);
         if (response)
         {
-            OnCollectionChanged(action: NotifyCollectionChangedAction.Remove, changedItem: new KeyValuePair<TKey, TValue>(key, value));
+            OnCollectionChanged(action: NotifyCollectionChangedAction.Remove, changedItem: new KeyValuePair<TKey, TValue?>(key, value));
         }
         return response;
     }
 
     // https://codereview.stackexchange.com/questions/202663/simple-observabledictionary-implementation
 
-    private void OnCollectionChanged(NotifyCollectionChangedAction action, KeyValuePair<TKey, TValue> changedItem)
+    private void OnCollectionChanged(NotifyCollectionChangedAction action, KeyValuePair<TKey, TValue?> changedItem)
     {
         var handler = CollectionChanged;
         Application.Current.Dispatcher.Invoke(() =>

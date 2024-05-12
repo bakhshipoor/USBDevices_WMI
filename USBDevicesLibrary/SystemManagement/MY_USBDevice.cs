@@ -64,5 +64,33 @@ public class MY_USBDevice : Win32_PnPEntity
         return filedsToList;
     }
 
+    public int GetTotlaChilds()
+    {
+        int totalChilds = 0;
+        foreach (CIM_BaseClass item in this)
+        {
+            totalChilds++;
+            if (item.Count>0)
+            {
+                totalChilds+=GetChilds(item);
+            }
+        }
+        return totalChilds;
+    }
+
+    private int GetChilds(CIM_BaseClass baseClass)
+    {
+        int totalChilds = 0;
+        foreach (CIM_BaseClass item in baseClass)
+        {
+            totalChilds++;
+            if (item.Count > 0)
+            {
+                totalChilds += GetChilds(item);
+            }
+        }
+        return totalChilds;
+    }
+
     
 }

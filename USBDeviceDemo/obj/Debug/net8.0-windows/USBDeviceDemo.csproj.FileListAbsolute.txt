@@ -25,3 +25,31 @@ D:\6 Develope\USBDevicesApp\USBDeviceDemo\obj\Debug\net8.0-windows\refint\USBDev
 D:\6 Develope\USBDevicesApp\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.pdb
 D:\6 Develope\USBDevicesApp\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.genruntimeconfig.cache
 D:\6 Develope\USBDevicesApp\USBDeviceDemo\obj\Debug\net8.0-windows\ref\USBDeviceDemo.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\USBDeviceDemo.exe
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\USBDeviceDemo.deps.json
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\USBDeviceDemo.runtimeconfig.json
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\USBDeviceDemo.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\USBDeviceDemo.pdb
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\System.CodeDom.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\System.Management.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Management.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\USBDevicesLibrary.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\bin\Debug\net8.0-windows\USBDevicesLibrary.pdb
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.csproj.AssemblyReference.cache
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo_MarkupCompile.cache
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo_MarkupCompile.lref
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.g.resources
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.AssemblyInfoInputs.cache
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.AssemblyInfo.cs
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.csproj.CoreCompileInputs.cache
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.sourcelink.json
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.csproj.CopyComplete
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\refint\USBDeviceDemo.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.pdb
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\USBDeviceDemo.genruntimeconfig.cache
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDeviceDemo\obj\Debug\net8.0-windows\ref\USBDeviceDemo.dll

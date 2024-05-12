@@ -85,6 +85,7 @@ public class Win32_DiskDrive : CIM_DiskDrive
                 {
                     if (DeviceID == item.DiskDriveDeviceID)
                     {
+                        ChildDevicesID.Clear();
                         if (!string.IsNullOrEmpty(item.DiskPartitionDeviceID))
                             ChildDevicesID.Add(item.DiskPartitionDeviceID);
                         if (Collection[ClassName.Win32_DiskPartition] != null)

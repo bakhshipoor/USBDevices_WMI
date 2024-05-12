@@ -142,7 +142,8 @@ public class CIM_LogicalDevice : CIM_LogicalElement
         VID = cim_LogicalDevice.VID;
         PID = cim_LogicalDevice.PID;
         ParentDeviceID = cim_LogicalDevice.ParentDeviceID;
-        ChildDevicesID = cim_LogicalDevice.ChildDevicesID;
+        if (!string.IsNullOrEmpty(DeviceID))
+            ChildDevicesID = GetChilds(DeviceID);
     }
 
     public override List<PnPEntityToList> FiledsToList()

@@ -34,8 +34,8 @@ public class CIM_BaseClass : ThreadSafeObservableCollection<CIM_BaseClass>
     {
         CIM_BaseClass cim_BaseClass = (CIM_BaseClass)managementClass;
         ParentUSBDevice = cim_BaseClass.ParentUSBDevice;
-        foreach (var item in cim_BaseClass)
-            Add(item);
+        //foreach (var item in cim_BaseClass)
+        //    Add(item);
     }
 
     public virtual void RetrieveValues(ManagementObject managementObject)

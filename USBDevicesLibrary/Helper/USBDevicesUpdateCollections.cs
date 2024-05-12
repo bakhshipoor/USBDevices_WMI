@@ -105,191 +105,99 @@ public static class USBDevicesUpdateCollections
         }
     }
 
-    public static async void UpdateCollection_Win32_PnPEntity()
+    public static void UpdateCollection_Win32_PnPEntity()
     {
-        if (WMI_Collection[ClassName.Win32_PnPEntity] != null)
+        //UpdateCollectionByName(ClassName.Win32_PnPEntity);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_PnPEntity);
+    }
+
+    public static void UpdateCollection_Win32_DiskDrive()
+    {
+        //UpdateCollectionByName(ClassName.Win32_DiskDrive);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_DiskDrive);
+    }
+
+    public static void UpdateCollection_Win32_DiskDriveToDiskPartition()
+    {
+        //UpdateCollectionByName(ClassName.Win32_DiskDriveToDiskPartition);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_DiskDriveToDiskPartition);
+    }
+
+    public static void UpdateCollection_Win32_DiskPartition()
+    {
+        //UpdateCollectionByName(ClassName.Win32_DiskPartition);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_DiskPartition);
+    }
+
+    public static void UpdateCollection_Win32_LogicalDiskToPartition()
+    {
+        //UpdateCollectionByName(ClassName.Win32_LogicalDiskToPartition);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_LogicalDiskToPartition);
+    }
+
+    public static void UpdateCollection_Win32_LogicalDisk()
+    {
+        //UpdateCollectionByName(ClassName.Win32_LogicalDisk);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_LogicalDisk);
+    }
+
+    public static void UpdateCollection_Win32_NetworkAdapter()
+    {
+        //UpdateCollectionByName(ClassName.Win32_NetworkAdapter);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_NetworkAdapter);
+    }
+
+    public static void UpdateCollection_Win32_NetworkAdapterConfiguration()
+    {
+        //UpdateCollectionByName(ClassName.Win32_NetworkAdapterConfiguration);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_NetworkAdapterConfiguration);
+    }
+
+    public static void UpdateCollection_Win32_SerialPort()
+    {
+        //UpdateCollectionByName(ClassName.Win32_SerialPort);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_SerialPort);
+    }
+
+    public static void UpdateCollection_Win32_SerialPortConfiguration()
+    {
+        //UpdateCollectionByName(ClassName.Win32_SerialPortConfiguration);
+        RunUpdateCollectionByNameAsync(ClassName.Win32_SerialPortConfiguration);
+    }
+
+    public static void UpdateCollectionByName(ClassName className)
+    {
+        Type? type = Type.GetType($"USBDevicesLibrary.{className}, USBDevicesLibrary");
+        if (type == null) return;
+        if (WMI_Collection[className] == null) return;
+        Collection[className].Clear();
+        foreach (ManagementObject item in WMI_Collection[className].Cast<ManagementObject>())
         {
-            Collection[ClassName.Win32_PnPEntity].Clear();
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_PnPEntity].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_PnPEntity].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_PnPEntity].Add(new Win32_PnPEntity(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
+            object? entity = Activator.CreateInstance(type, new object[] { item });
+            if (entity != null)
+                Collection[className].Add( entity);
         }
     }
 
-    public static async void UpdateCollection_Win32_DiskDrive()
+    public static async void RunUpdateCollectionByNameAsync(ClassName className)
     {
-        if (WMI_Collection[ClassName.Win32_DiskDrive] != null)
-        {
-            Collection[ClassName.Win32_DiskDrive].Clear();
-            //foreach (ManagementObject item in WMI_Collection[ClassName.Win32_DiskDrive])
-            //    Collection[ClassName.Win32_DiskDrive].Add(new Win32_DiskDrive(item));
-
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_DiskDrive].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_DiskDrive].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_DiskDrive].Add(new Win32_DiskDrive(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
-        }
+        await UpdateCollectionByNameAsync(className);
     }
 
-    public static async void UpdateCollection_Win32_DiskDriveToDiskPartition()
+    public static async Task UpdateCollectionByNameAsync(ClassName className)
     {
-        if (WMI_Collection[ClassName.Win32_DiskDriveToDiskPartition] != null)
+        Type? type = Type.GetType($"USBDevicesLibrary.{className}, USBDevicesLibrary");
+        if (type == null) return;
+        if (WMI_Collection[className] == null) return;
+        Collection[className].Clear();
+        List<Task> tasks = [];
+        foreach (ManagementObject item in WMI_Collection[className].Cast<ManagementObject>())
         {
-            Collection[ClassName.Win32_DiskDriveToDiskPartition].Clear();
-            //foreach (ManagementObject item in WMI_Collection[ClassName.Win32_DiskDriveToDiskPartition])
-            //    Collection[ClassName.Win32_DiskDriveToDiskPartition].Add(new Win32_DiskDriveToDiskPartition(item));
-
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_DiskDriveToDiskPartition].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_DiskDriveToDiskPartition].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_DiskDriveToDiskPartition].Add(new Win32_DiskDriveToDiskPartition(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
+            object? entity = Activator.CreateInstance(type, new object[] { item });
+            if (entity != null)
+                tasks.Add(Task.Run(() => Collection[className].Add(entity)));
         }
-    }
-
-    public static async void UpdateCollection_Win32_DiskPartition()
-    {
-        if (WMI_Collection[ClassName.Win32_DiskPartition] != null)
-        {
-            Collection[ClassName.Win32_DiskPartition].Clear();
-            //foreach (ManagementObject item in WMI_Collection[ClassName.Win32_DiskPartition])
-            //    Collection[ClassName.Win32_DiskPartition].Add(new Win32_DiskPartition(item));
-
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_DiskPartition].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_DiskPartition].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_DiskPartition].Add(new Win32_DiskPartition(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
-        }
-    }
-
-    public static async void UpdateCollection_Win32_LogicalDiskToPartition()
-    {
-        if (WMI_Collection[ClassName.Win32_LogicalDiskToPartition] != null)
-        {
-            Collection[ClassName.Win32_LogicalDiskToPartition].Clear();
-            //foreach (ManagementObject item in WMI_Collection[ClassName.Win32_LogicalDiskToPartition])
-            //    Collection[ClassName.Win32_LogicalDiskToPartition].Add(new Win32_LogicalDiskToPartition(item));
-
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_LogicalDiskToPartition].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_LogicalDiskToPartition].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_LogicalDiskToPartition].Add(new Win32_LogicalDiskToPartition(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
-        }
-    }
-
-    public static async void UpdateCollection_Win32_LogicalDisk()
-    {
-        if (WMI_Collection[ClassName.Win32_LogicalDisk] != null)
-        {
-            Collection[ClassName.Win32_LogicalDisk].Clear();
-            //foreach (ManagementObject item in WMI_Collection[ClassName.Win32_LogicalDisk])
-            //    Collection[ClassName.Win32_LogicalDisk].Add(new Win32_LogicalDisk(item));
-
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_LogicalDisk].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_LogicalDisk].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_LogicalDisk].Add(new Win32_LogicalDisk(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
-        }
-    }
-
-    public static async void UpdateCollection_Win32_NetworkAdapter()
-    {
-        if (WMI_Collection[ClassName.Win32_NetworkAdapter] != null)
-        {
-            Collection[ClassName.Win32_NetworkAdapter].Clear();
-            //foreach (ManagementObject item in WMI_Collection[ClassName.Win32_NetworkAdapter])
-            //    Collection[ClassName.Win32_NetworkAdapter].Add(new Win32_NetworkAdapter(item));
-
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_NetworkAdapter].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_NetworkAdapter].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_NetworkAdapter].Add(new Win32_NetworkAdapter(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
-        }
-    }
-
-    public static async void UpdateCollection_Win32_NetworkAdapterConfiguration()
-    {
-        if (WMI_Collection[ClassName.Win32_NetworkAdapterConfiguration] != null )
-        {
-            Collection[ClassName.Win32_NetworkAdapterConfiguration].Clear();
-            //foreach (ManagementObject item in WMI_Collection[ClassName.Win32_NetworkAdapterConfiguration])
-            //    Collection[ClassName.Win32_NetworkAdapterConfiguration].Add(new Win32_NetworkAdapterConfiguration(item));
-
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_NetworkAdapterConfiguration].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_NetworkAdapterConfiguration].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_NetworkAdapterConfiguration].Add(new Win32_NetworkAdapterConfiguration(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
-        }
-    }
-
-    public static async void UpdateCollection_Win32_SerialPort()
-    {
-        if (WMI_Collection[ClassName.Win32_SerialPort] != null)
-        {
-            Collection[ClassName.Win32_SerialPort].Clear();
-            //foreach (ManagementObject item in WMI_Collection[ClassName.Win32_SerialPort])
-            //    Collection[ClassName.Win32_SerialPort].Add(new Win32_SerialPort(item));
-
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_SerialPort].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_SerialPort].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_SerialPort].Add(new Win32_SerialPort(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
-        }
-    }
-
-    public static async void UpdateCollection_Win32_SerialPortConfiguration()
-    {
-        if (WMI_Collection[ClassName.Win32_SerialPortConfiguration] != null)
-        {
-            Collection[ClassName.Win32_SerialPortConfiguration].Clear();
-            //foreach (ManagementObject item in WMI_Collection[ClassName.Win32_SerialPortConfiguration])
-            //    Collection[ClassName.Win32_SerialPortConfiguration].Add(new Win32_SerialPortConfiguration(item));
-
-            Task[] tasks = new Task[WMI_Collection[ClassName.Win32_SerialPortConfiguration].Count];
-            int counter = 0;
-            foreach (ManagementObject item in WMI_Collection[ClassName.Win32_SerialPortConfiguration].Cast<ManagementObject>())
-            {
-                tasks[counter] = Task.Run(() => Collection[ClassName.Win32_SerialPortConfiguration].Add(new Win32_SerialPortConfiguration(item)));
-                counter++;
-            }
-            await Task.WhenAll(tasks);
-        }
+        await Task.WhenAll(tasks);
     }
 
     internal static async Task UpdateCollections()

@@ -10,3 +10,16 @@ D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\USBDevicesLibrar
 D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\refint\USBDevicesLibrary.dll
 D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\USBDevicesLibrary.pdb
 D:\6 Develope\USBDevicesApp\USBDevices\obj\Debug\net8.0-windows\ref\USBDevicesLibrary.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\bin\Debug\net8.0-windows\USBDevicesLibrary.deps.json
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\bin\Debug\net8.0-windows\USBDevicesLibrary.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\bin\Debug\net8.0-windows\USBDevicesLibrary.pdb
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\USBDevicesLibrary.csproj.AssemblyReference.cache
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\USBDevicesLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\USBDevicesLibrary.AssemblyInfoInputs.cache
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\USBDevicesLibrary.AssemblyInfo.cs
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\USBDevicesLibrary.csproj.CoreCompileInputs.cache
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\USBDevicesLibrary.sourcelink.json
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\USBDevicesLibrary.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\refint\USBDevicesLibrary.dll
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\USBDevicesLibrary.pdb
+C:\Users\hbakh\Source\Repos\bakhshipoor\USBDevices\USBDevicesLibrary\obj\Debug\net8.0-windows\ref\USBDevicesLibrary.dll

@@ -27,7 +27,7 @@ namespace USBDeviceDemo
             USBDevicesCollections.InitialCollectionsComplete += USBDevicesCollections_InitialCollectionsComplete;
             trvMain.SelectedItemChanged += TrvMain_SelectedItemChanged;
             USBDevicesCollections.InitialCollections();
-            trvMain.MouseDoubleClick += TrvMain_MouseDoubleClick;
+            //trvMain.MouseDoubleClick += TrvMain_MouseDoubleClick;
             USBDevicesCollection.CollectionChanged += USBDevicesCollection_CollectionChanged;
             USBDevicesCollections.DeviceChanged += USBDevicesCollections_DeviceChanged;
         }

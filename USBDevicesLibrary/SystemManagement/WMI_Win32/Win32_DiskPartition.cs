@@ -70,6 +70,7 @@ public class Win32_DiskPartition : CIM_DiskPartition
                 {
                     if (DeviceID == item.DiskPartitionDeviceID)
                     {
+                        ChildDevicesID.Clear();
                         if (!string.IsNullOrEmpty(item.LogicalDiskDeviceID))
                             ChildDevicesID.Add(item.LogicalDiskDeviceID);
                         if (Collection[ClassName.Win32_LogicalDisk] != null)
