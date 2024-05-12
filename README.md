@@ -11,7 +11,7 @@ This repository not finished and will completed.
 - Windows Desktop 
 - List of USB Devices in pc
 - List all of USB device childs
-- At now supported interfaces:
+- Supported interfaces:
   - Disk Drive
   - Disk Partition
   - Logical Disk
