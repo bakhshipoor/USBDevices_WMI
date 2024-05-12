@@ -24,7 +24,8 @@ This repository not finished and will completed.
   - Disconnected
   - Modified
 
- Usage instructions will completed as soon. This library have many changes and after update finished I will complete readme.
+## Usage
+ Usage instructions will be completed soon. This library is going to different changes and after being updated I will complete readme.
 
 ### Demo video (GIF)
 ![0001](https://github.com/bakhshipoor/USBDevices/assets/2270529/83101ddb-78b7-4058-ae7e-deccb00da5b2)
