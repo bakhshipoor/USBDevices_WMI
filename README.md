@@ -2,8 +2,8 @@
 Detect And Event All USB Changes
 
 This repository not finished and will completed.
+
 - Using System.Management Nuget package
-- 
 - All data get from WMI in system management
 - Using Concurrent Collections (System.Collections.Concurrent) : ConcurrentBag, ConcurrentDictionary
 - Using << setupapi.dll >> for finding device parent and childs. so you cant use this library remotely such as WMI instructions.
