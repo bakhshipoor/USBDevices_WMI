@@ -33,7 +33,7 @@ Detect And Event All USB Changes and Filter Devices
     USBDevicesCollection = new();
     ```
 
-2. By default Connected, Disconnected and Modified events is enabled if you want you can disable each of them by:
+2. By default Connected, Disconnected and Modified events are enabled if you want you can disable each of them by:
     ```sh
    USBDevicesCollection.DisableConnectedEvents();
    USBDevicesCollection.DisableDisconnectedEvents();
@@ -46,15 +46,15 @@ Detect And Event All USB Changes and Filter Devices
      USBDevicesCollection.EnableModifiedEvents();
      ```
 
-3. You can set filter list to usb devices monitoring. In this case you should enable the filter status by: 
+3. You can set filter list to monitor usb devices. In this case you should enable the filter status by: 
    ```sh
    USBDevicesCollection.EnableFilterDevice();
    ```
-   you can diables filter status by:
+   you can diable filter status by:
    ```sh
    USBDevicesCollection.DisableFilterDevice();
    ```
-   after enabled that add VID and PID to filter list. You can fill both of VID & PID or only VID or PID. Such as `AddDeviceToFilter("xxxx", "yyyy")` or `AddDeviceToFilter("xxxx", string.Empty)` or `AddDeviceToFilter(string.Empty, "yyyy")`
+   after enabling, add VID and PID to filter list. You can fillter both of VID & PID or only VID or PID. Such as `AddDeviceToFilter("xxxx", "yyyy")` or `AddDeviceToFilter("xxxx", string.Empty)` or `AddDeviceToFilter(string.Empty, "yyyy")`
    ```sh
    USBDevicesCollection.AddDeviceToFilter("xxxx", "yyyy");
    ```
