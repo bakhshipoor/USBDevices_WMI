@@ -1,5 +1,5 @@
 # USB Devices Library
-Detect And Event All USB Changes
+Detect And Event All USB Changes and Filter Devices
 
 
 - Using System.Management Nuget package
