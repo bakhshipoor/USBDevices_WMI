@@ -1,7 +1,6 @@
 # USB Devices Library
 Detect And Event All USB Changes
 
-This repository not finished and will completed.
 
 - Using System.Management Nuget package
 - All data get from WMI in system management
@@ -78,9 +77,10 @@ This repository not finished and will completed.
 
 6. `USBDevices` class inherited from Concurrent Dictionary. You can access devices list by `USBDevicesCollection.Values`.
 
-
+For more information study the codes;
    
-### Demo video (GIF)
+
+## Demo video (GIF)
 ![0001](https://github.com/bakhshipoor/USBDevices/assets/2270529/83101ddb-78b7-4058-ae7e-deccb00da5b2)
 
 
