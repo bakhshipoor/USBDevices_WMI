@@ -26,14 +26,13 @@ This repository not finished and will completed.
 
 ## Usage
  1. Create new instance of class `USBDevices`
-   ```sh
-   public USBDevices USBDevicesCollection { get; set; }
-   ```
+  ```sh
+  public USBDevices USBDevicesCollection { get; set; }
+  ```
 
-   ```sh
-   public USBDevices USBDevicesCollection { get; set; }
-   USBDevicesCollection = new();
-   ```
+  ```sh
+  USBDevicesCollection = new();
+  ```
 
 2. By default Connected, Disconnected and Modified events is enabled if you want you can disable each of them by:
     ```sh
