@@ -63,7 +63,7 @@ Detect And Event All USB Changes and Filter Devices
    USBDevicesCollection.RemoveDeviceFromFilter("xxxx", "yyyy");
    ```
 
-4. Creater Events :
+4. Add Events :
    ```sh
    USBDevicesCollection.InitialCollectionsComplete += USBDevicesCollections_InitialCollectionsComplete;
    USBDevicesCollection.CollectionChanged += USBDevicesCollection_CollectionChanged;
