@@ -25,7 +25,57 @@ This repository not finished and will completed.
   - Modified
 
 ## Usage
- Usage instructions will be completed soon. This library is going to different changes and after being updated I will complete readme.
+ 1. Create new instance of class `USBDevices`
+   ```sh
+   public USBDevices USBDevicesCollection { get; set; }
+   ```
+
+   ```sh
+   public USBDevices USBDevicesCollection { get; set; }
+   USBDevicesCollection = new();
+   ```
+
+2. By default Connected, Disconnected and Modified events is enabled if you want you can disable each of them by:
+    ```sh
+   USBDevicesCollection.DisableConnectedEvents();
+   USBDevicesCollection.DisableDisconnectedEvents();
+   USBDevicesCollection.DisableModifiedEvents();
+   ```
+  or you can enable them by:
+   ```sh
+   USBDevicesCollection.EnableConnectedEvents();
+   USBDevicesCollection.EnableDisconnectedEvents();
+   USBDevicesCollection.EnableModifiedEvents();
+   ```
+
+3. You can set filter list to usb devices monitoring. In this case you should enable the filter status by: 
+   ```sh
+   USBDevicesCollection.EnableFilterDevice();
+   ```
+   you can diables filter status by:
+   ```sh
+   USBDevicesCollection.DisableFilterDevice();
+   ```
+   after enabled that add VID and PID to filter list. You can fill both of VID & PID or only VID or PID.
+   ```sh
+   USBDevicesCollection.AddDeviceToFilter("xxxx", "yyyy");
+   ```
+   you can remove from list of filtered devices by RemoveDeviceFromFilter(vid, pid):
+   ```sh
+   USBDevicesCollection.RemoveDeviceFromFilter("xxxx", "yyyy");
+   ```
+
+4. Creater Events :
+   ```sh
+   USBDevicesCollection.InitialCollectionsComplete += USBDevicesCollections_InitialCollectionsComplete;
+   USBDevicesCollection.CollectionChanged += USBDevicesCollection_CollectionChanged;
+   USBDevicesCollection.DeviceChanged += USBDevicesCollections_DeviceChanged;
+   ```
+
+5. After initial USBDevices class you should start the monitiring by Start():
+   ```sh
+   USBDevicesCollection.Start();
+   ```
 
 ### Demo video (GIF)
 ![0001](https://github.com/bakhshipoor/USBDevices/assets/2270529/83101ddb-78b7-4058-ae7e-deccb00da5b2)
