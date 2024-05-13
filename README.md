@@ -70,14 +70,14 @@ Detect And Event All USB Changes
    USBDevicesCollection.DeviceChanged += USBDevicesCollections_DeviceChanged;
    ```
 
-5. After initial USBDevices class you should start the monitiring by `Start()`:
+5. After initial `USBDevices` class you should start the monitiring by `Start()`:
    ```sh
    USBDevicesCollection.Start();
    ```
 
-6. `USBDevices` class inherited from Concurrent Dictionary. You can access devices list by `USBDevicesCollection.Values`.
+6. `USBDevices` class inherited from `Concurrent Dictionary`. You can access devices list by `USBDevicesCollection.Values`.
 
-For more information study the codes;
+For more information study the codes or contact with me;
    
 
 ## Demo video (GIF)
