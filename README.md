@@ -59,7 +59,7 @@ This repository not finished and will completed.
    ```sh
    USBDevicesCollection.AddDeviceToFilter("xxxx", "yyyy");
    ```
-   you can remove from list of filtered devices by RemoveDeviceFromFilter(vid, pid):
+   you can remove from list of filtered devices by `RemoveDeviceFromFilter(vid, pid)`:
    ```sh
    USBDevicesCollection.RemoveDeviceFromFilter("xxxx", "yyyy");
    ```
@@ -71,11 +71,15 @@ This repository not finished and will completed.
    USBDevicesCollection.DeviceChanged += USBDevicesCollections_DeviceChanged;
    ```
 
-5. After initial USBDevices class you should start the monitiring by Start():
+5. After initial USBDevices class you should start the monitiring by `Start()`:
    ```sh
    USBDevicesCollection.Start();
    ```
 
+6. `USBDevices` class inherited from Concurrent Dictionary. You can access devices list by `USBDevicesCollection.Values`.
+
+
+   
 ### Demo video (GIF)
 ![0001](https://github.com/bakhshipoor/USBDevices/assets/2270529/83101ddb-78b7-4058-ae7e-deccb00da5b2)
 
