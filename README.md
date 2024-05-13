@@ -77,7 +77,7 @@ Detect And Event All USB Changes and Filter Devices
 
 6. `USBDevices` class inherited from `Concurrent Dictionary`. You can access devices list by `USBDevicesCollection.Values`.
 
-For more information study the codes or contact with me;
+For more information study the codes or contact with me.
    
 
 ## Demo video (GIF)
