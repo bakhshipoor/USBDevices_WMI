@@ -54,7 +54,7 @@ Detect And Event All USB Changes and Filter Devices
    ```sh
    USBDevicesCollection.DisableFilterDevice();
    ```
-   after enabled that add VID and PID to filter list. You can fill both of VID & PID or only VID or PID.
+   after enabled that add VID and PID to filter list. You can fill both of VID & PID or only VID or PID. Such as `AddDeviceToFilter("xxxx", "yyyy")` or `AddDeviceToFilter("xxxx", string.Empty)` or `AddDeviceToFilter(string.Empty, "yyyy")`
    ```sh
    USBDevicesCollection.AddDeviceToFilter("xxxx", "yyyy");
    ```
