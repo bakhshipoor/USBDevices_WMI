@@ -31,7 +31,7 @@ public class USBDevices : ThreadSafeDictionary<MY_USBDevice, MY_USBDevice>
         UsbDevicesEventManager = new(this);
     }
 
-    private USBDevicesEventManager UsbDevicesEventManager;
+    private readonly USBDevicesEventManager UsbDevicesEventManager;
     internal bool InitialCompleted;
 
     public async void Start()
@@ -100,7 +100,6 @@ public class USBDevices : ThreadSafeDictionary<MY_USBDevice, MY_USBDevice>
 
     public bool AddDeviceToFilter(string vid, string pid)
     {
-        USBDevicesFilter devicesFilter = new();
         bool find = false;
         foreach (USBDevicesFilter item in USBDevicesFilterList)
             if (item.VID == vid && item.PID == pid)
