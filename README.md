@@ -40,12 +40,12 @@ This repository not finished and will completed.
    USBDevicesCollection.DisableDisconnectedEvents();
    USBDevicesCollection.DisableModifiedEvents();
    ```
-  or you can enable them by:
-   ```sh
-   USBDevicesCollection.EnableConnectedEvents();
-   USBDevicesCollection.EnableDisconnectedEvents();
-   USBDevicesCollection.EnableModifiedEvents();
-   ```
+    or you can enable them by:
+     ```sh
+     USBDevicesCollection.EnableConnectedEvents();
+     USBDevicesCollection.EnableDisconnectedEvents();
+     USBDevicesCollection.EnableModifiedEvents();
+     ```
 
 3. You can set filter list to usb devices monitoring. In this case you should enable the filter status by: 
    ```sh
