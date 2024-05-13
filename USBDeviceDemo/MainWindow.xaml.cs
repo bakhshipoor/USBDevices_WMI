@@ -1,35 +1,34 @@
 ﻿using System.Windows;
-using System.Windows.Input;
 using USBDevicesLibrary;
-using static USBDevicesLibrary.USBDevicesInitialCollections;
 
 namespace USBDeviceDemo
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        public USBDevices USBDevicesCollection { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
-            
             DataContext = this;
-            USBDevicesCollections = new();
+            USBDevicesCollection = new();
+
+            //USBDevicesCollection.EnableFilterDevice();
+            //USBDevicesCollection.AddDeviceToFilter("E2B7", "0811");
+
+            USBDevicesCollection.InitialCollectionsComplete += USBDevicesCollections_InitialCollectionsComplete;
+            USBDevicesCollection.CollectionChanged += USBDevicesCollection_CollectionChanged;
+            USBDevicesCollection.DeviceChanged += USBDevicesCollections_DeviceChanged;
+
             Loaded -= MainWindow_Loaded;
             Loaded += MainWindow_Loaded;
-            
         }
 
         private  void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            USBDevicesCollections.InitialCollectionsComplete += USBDevicesCollections_InitialCollectionsComplete;
             trvMain.SelectedItemChanged += TrvMain_SelectedItemChanged;
-            USBDevicesCollections.InitialCollections();
-            //trvMain.MouseDoubleClick += TrvMain_MouseDoubleClick;
-            USBDevicesCollection.CollectionChanged += USBDevicesCollection_CollectionChanged;
-            USBDevicesCollections.DeviceChanged += USBDevicesCollections_DeviceChanged;
+            
+            USBDevicesCollection.Start();
         }
 
         private void USBDevicesCollections_DeviceChanged(object? sender, USBDevicesEventArgs e)
@@ -48,11 +47,6 @@ namespace USBDeviceDemo
             trvMain.ItemsSource = USBDevicesCollection.Values;
         }
 
-        private void TrvMain_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            trvMain.Items.Refresh();
-        }
-
         private void TrvMain_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             List<PnPEntityToList> filedsToList = [.. ((CIM_BaseClass)e.NewValue).FiledsToList().OrderBy(x => x.Name)];
@@ -61,18 +55,10 @@ namespace USBDeviceDemo
 
         private void USBDevicesCollections_InitialCollectionsComplete(object? sender, EventArgs e)
         {
-            Dispatcher.Invoke(() =>
-            {
-                brdWait.Visibility = Visibility.Collapsed;
-                if (USBDevicesCollections != null)
-                    trvMain.ItemsSource = USBDevicesCollection.Values;
-                trvMain.Items.Refresh();
-            });
-
-
+            brdWait.Visibility = Visibility.Collapsed;
+            if (USBDevicesCollection != null)
+                trvMain.ItemsSource = USBDevicesCollection.Values;
+            trvMain.Items.Refresh();
         }
-
-        public USBDevices USBDevicesCollections { get; set; }
-
     }
 }

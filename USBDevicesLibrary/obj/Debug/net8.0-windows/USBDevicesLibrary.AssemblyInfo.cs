@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("USBDevicesLibrary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+feeec98c8c1015eb83b5cc29ce8a8a08f89e8c65")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7bea1224da4b18a70836cca79dd5912c911d2296")]
 [assembly: System.Reflection.AssemblyProductAttribute("USBDevicesLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("USBDevicesLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

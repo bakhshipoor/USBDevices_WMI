@@ -5,66 +5,8 @@ using static USBDevicesLibrary.WMIClassesNameEnum;
 
 namespace USBDevicesLibrary;
 
-public static class USBDevicesUpdateCollections
+internal static class USBDevicesUpdateCollections
 {
-    public static void UpdateWMICollection_MY_USBDevices()
-    {
-        WMI_Collection[ClassName.MY_USBDevices] = WMI_Searcher[ClassName.MY_USBDevices].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_PnPEntity()
-    {
-        WMI_Collection[ClassName.Win32_PnPEntity] = WMI_Searcher[ClassName.Win32_PnPEntity].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_DiskDrive()
-    {
-        WMI_Collection[ClassName.Win32_DiskDrive] = WMI_Searcher[ClassName.Win32_DiskDrive].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_DiskDriveToDiskPartition()
-    {
-        WMI_Collection[ClassName.Win32_DiskDriveToDiskPartition] = WMI_Searcher[ClassName.Win32_DiskDriveToDiskPartition].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_DiskPartition()
-    {
-        WMI_Collection[ClassName.Win32_DiskPartition] = WMI_Searcher[ClassName.Win32_DiskPartition].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_LogicalDiskToPartition()
-    {
-        WMI_Collection[ClassName.Win32_LogicalDiskToPartition] = WMI_Searcher[ClassName.Win32_LogicalDiskToPartition].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_LogicalDisk()
-    {
-        WMI_Collection[ClassName.Win32_LogicalDisk] = WMI_Searcher[ClassName.Win32_LogicalDisk].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_NetworkAdapter()
-    {
-        WMI_Collection[ClassName.Win32_NetworkAdapter] = WMI_Searcher[ClassName.Win32_NetworkAdapter].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_NetworkAdapterConfiguration()
-    {
-        WMI_Collection[ClassName.Win32_NetworkAdapterConfiguration] = WMI_Searcher[ClassName.Win32_NetworkAdapterConfiguration].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_SerialPort()
-    {
-        WMI_Collection[ClassName.Win32_SerialPort] = WMI_Searcher[ClassName.Win32_SerialPort].Get();
-    }
-
-    public static void UpdateWMICollection_Win32_SerialPortConfiguration()
-    {
-        WMI_Collection[ClassName.Win32_SerialPortConfiguration] = WMI_Searcher[ClassName.Win32_SerialPortConfiguration].Get();
-    }
-
-
-
-
     public static void UpdateCollection_MY_USBDevices()
     {
         List<string> devicesID = [];
@@ -96,73 +38,47 @@ public static class USBDevicesUpdateCollections
                 if (!findID && !string.IsNullOrEmpty(itemDeviceID))
                 {
                     devicesID.Add(itemDeviceID);
-                    
-                    Collection[ClassName.MY_USBDevices].Add(new MY_USBDevice(item));
+                    if (FilterDeviceStatus && USBDevicesFilterList.Count>0)
+                    {
+                        MY_USBDevice my_USBDevice = new(item);
+                        foreach (USBDevicesFilter itemFilter in USBDevicesFilterList)
+                        {
+                            if (!string.IsNullOrEmpty(itemFilter.VID) && !string.IsNullOrEmpty(itemFilter.PID))
+                            {
+                                if (itemFilter.VID.Equals(my_USBDevice.VID, StringComparison.OrdinalIgnoreCase) && itemFilter.PID.Equals(my_USBDevice.PID, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Collection[ClassName.MY_USBDevices].Add(my_USBDevice);
+                                }
+                            }
+                            else if (!string.IsNullOrEmpty(itemFilter.VID) && string.IsNullOrEmpty(itemFilter.PID))
+                            {
+                                if (itemFilter.VID.Equals(my_USBDevice.VID, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Collection[ClassName.MY_USBDevices].Add(my_USBDevice);
+                                }
+                            }
+                            else if (string.IsNullOrEmpty(itemFilter.VID) && !string.IsNullOrEmpty(itemFilter.PID))
+                            {
+                                if (itemFilter.PID.Equals(my_USBDevice.PID,StringComparison.OrdinalIgnoreCase))
+                                {
+                                    Collection[ClassName.MY_USBDevices].Add(my_USBDevice);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Collection[ClassName.MY_USBDevices].Add(new MY_USBDevice(item));
+                    }
                 }
                 findID = false;
             }
-
         }
     }
 
-    public static void UpdateCollection_Win32_PnPEntity()
+    public static void UpdateWMICollectionByName(ClassName className)
     {
-        //UpdateCollectionByName(ClassName.Win32_PnPEntity);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_PnPEntity);
-    }
-
-    public static void UpdateCollection_Win32_DiskDrive()
-    {
-        //UpdateCollectionByName(ClassName.Win32_DiskDrive);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_DiskDrive);
-    }
-
-    public static void UpdateCollection_Win32_DiskDriveToDiskPartition()
-    {
-        //UpdateCollectionByName(ClassName.Win32_DiskDriveToDiskPartition);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_DiskDriveToDiskPartition);
-    }
-
-    public static void UpdateCollection_Win32_DiskPartition()
-    {
-        //UpdateCollectionByName(ClassName.Win32_DiskPartition);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_DiskPartition);
-    }
-
-    public static void UpdateCollection_Win32_LogicalDiskToPartition()
-    {
-        //UpdateCollectionByName(ClassName.Win32_LogicalDiskToPartition);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_LogicalDiskToPartition);
-    }
-
-    public static void UpdateCollection_Win32_LogicalDisk()
-    {
-        //UpdateCollectionByName(ClassName.Win32_LogicalDisk);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_LogicalDisk);
-    }
-
-    public static void UpdateCollection_Win32_NetworkAdapter()
-    {
-        //UpdateCollectionByName(ClassName.Win32_NetworkAdapter);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_NetworkAdapter);
-    }
-
-    public static void UpdateCollection_Win32_NetworkAdapterConfiguration()
-    {
-        //UpdateCollectionByName(ClassName.Win32_NetworkAdapterConfiguration);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_NetworkAdapterConfiguration);
-    }
-
-    public static void UpdateCollection_Win32_SerialPort()
-    {
-        //UpdateCollectionByName(ClassName.Win32_SerialPort);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_SerialPort);
-    }
-
-    public static void UpdateCollection_Win32_SerialPortConfiguration()
-    {
-        //UpdateCollectionByName(ClassName.Win32_SerialPortConfiguration);
-        RunUpdateCollectionByNameAsync(ClassName.Win32_SerialPortConfiguration);
+        WMI_Collection[className] = WMI_Searcher[className].Get();
     }
 
     public static void UpdateCollectionByName(ClassName className)
@@ -177,11 +93,6 @@ public static class USBDevicesUpdateCollections
             if (entity != null)
                 Collection[className].Add( entity);
         }
-    }
-
-    public static async void RunUpdateCollectionByNameAsync(ClassName className)
-    {
-        await UpdateCollectionByNameAsync(className);
     }
 
     public static async Task UpdateCollectionByNameAsync(ClassName className)
@@ -200,44 +111,36 @@ public static class USBDevicesUpdateCollections
         await Task.WhenAll(tasks);
     }
 
-    internal static async Task UpdateCollections()
+    internal static async Task UpdateCollectionsAsync()
     {
-        Task[] InitialTasks =
+        Task[] updateWMICollectionsTask =
         [
-            Task.Run(UpdateWMICollection_Win32_PnPEntity),
-            Task.Run(UpdateWMICollection_Win32_DiskDrive),
-            Task.Run(UpdateWMICollection_Win32_DiskDriveToDiskPartition),
-            Task.Run(UpdateWMICollection_Win32_DiskPartition),
-            Task.Run(UpdateWMICollection_Win32_LogicalDiskToPartition),
-            Task.Run(UpdateWMICollection_Win32_LogicalDisk),
-            Task.Run(UpdateWMICollection_Win32_NetworkAdapter),
-            Task.Run(UpdateWMICollection_Win32_NetworkAdapterConfiguration),
-            Task.Run(UpdateWMICollection_Win32_SerialPort),
-            Task.Run(UpdateWMICollection_Win32_SerialPortConfiguration),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_PnPEntity)),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_DiskDrive)),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_DiskDriveToDiskPartition)),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_DiskPartition)),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_LogicalDiskToPartition)),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_LogicalDisk)),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_NetworkAdapter)),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_NetworkAdapterConfiguration)),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_SerialPort)),
+            Task.Run(() => UpdateWMICollectionByName(ClassName.Win32_SerialPortConfiguration)),
         ];
-        await Task.WhenAll(InitialTasks);
+        await Task.WhenAll(updateWMICollectionsTask);
 
-        Task[] InitialTasks2 =
+        Task[] updateCollectionsTask =
         [
-            Task.Run(UpdateCollection_Win32_PnPEntity),
-            Task.Run(UpdateCollection_Win32_DiskDrive),
-            Task.Run(UpdateCollection_Win32_DiskDriveToDiskPartition),
-            Task.Run(UpdateCollection_Win32_DiskPartition),
-            Task.Run(UpdateCollection_Win32_LogicalDiskToPartition),
-            Task.Run(UpdateCollection_Win32_LogicalDisk),
-            Task.Run(UpdateCollection_Win32_NetworkAdapter),
-            Task.Run(UpdateCollection_Win32_NetworkAdapterConfiguration),
-            Task.Run(UpdateCollection_Win32_SerialPort),
-            Task.Run(UpdateCollection_Win32_SerialPortConfiguration),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_PnPEntity)),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_DiskDrive)),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_DiskDriveToDiskPartition)),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_DiskPartition)),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_LogicalDiskToPartition)),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_LogicalDisk)),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_NetworkAdapter)),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_NetworkAdapterConfiguration)),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_SerialPort)),
+            Task.Run(() => UpdateCollectionByNameAsync(ClassName.Win32_SerialPortConfiguration)),
         ];
-        await Task.WhenAll(InitialTasks2);
+        await Task.WhenAll(updateCollectionsTask);
     }
-
-    internal static MY_USBDevice AddUSBDeviceToCollection(MY_USBDevice my_USBDevice)
-    {
-        MY_USBDevice usbDevice = new(my_USBDevice);
-        USBDevicesCollection.TryAdd(usbDevice, usbDevice);
-        return usbDevice;
-    }
-
 }

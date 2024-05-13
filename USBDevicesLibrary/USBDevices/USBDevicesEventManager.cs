@@ -8,7 +8,7 @@ using static USBDevicesLibrary.WMIClassesNameEnum;
 
 namespace USBDevicesLibrary;
 
-public class USBDevicesEventManager
+internal class USBDevicesEventManager
 {
     public USBDevicesEventManager(USBDevices usbdevices)
     {
@@ -22,7 +22,7 @@ public class USBDevicesEventManager
         dispatcherTimer.Start();
     }
 
-    private USBDevices UsbDevices;
+    private readonly USBDevices UsbDevices;
     private readonly DispatcherTimer dispatcherTimer;
     private bool isProcessingConnectedDevices = false;
     private bool isProcessingDisconnectedDevices = false;
@@ -38,58 +38,67 @@ public class USBDevicesEventManager
             dispatcherTimer.Stop();
             if (UsbDevices.InitialCompleted)
             {
-                await Task.Run(() => { 
-                    UpdateWMICollection_MY_USBDevices();
+                await Task.Run(() => {
+                    UpdateWMICollectionByName(ClassName.MY_USBDevices);
                     UpdateCollection_MY_USBDevices();
                     // Check For Connected
-                    foreach (MY_USBDevice itemNew in Collection[ClassName.MY_USBDevices].Cast<MY_USBDevice>())
+                    if (ConnectedEventStatus)
                     {
-                        bool find = false;
-                        foreach (MY_USBDevice itemOld in Collection[ClassName.MY_USBDevices_OLD].Cast<MY_USBDevice>())
-                        {
-                            if (itemNew.DeviceID == itemOld.DeviceID)
-                            {
-                                find = true;
-                                break;
-                            }
-                        }
-                        if (!find)
-                        {
-                            connectedDevices.Add(itemNew);
-                        }
-                    }
-                    if (connectedDevices.Count > 0)
-                    {
-                        isProcessingConnectedDevices = true;
-                        OnDevice_Connected(connectedDevices);
-                    }
-                    // Check For Disconnected
-                    foreach (MY_USBDevice itemOld in Collection[ClassName.MY_USBDevices_OLD].Cast<MY_USBDevice>())
-                    {
-                        bool find = false;
                         foreach (MY_USBDevice itemNew in Collection[ClassName.MY_USBDevices].Cast<MY_USBDevice>())
                         {
-                            if (itemOld.DeviceID == itemNew.DeviceID)
+                            bool find = false;
+                            foreach (MY_USBDevice itemOld in Collection[ClassName.MY_USBDevices_OLD].Cast<MY_USBDevice>())
                             {
-                                find = true;
-                                break;
+                                if (itemNew.DeviceID == itemOld.DeviceID)
+                                {
+                                    find = true;
+                                    break;
+                                }
+                            }
+                            if (!find)
+                            {
+                                connectedDevices.Add(itemNew);
                             }
                         }
-                        if (!find)
+                        if (connectedDevices.Count > 0)
                         {
-                            disconnectedDevices.Add(itemOld);
+                            isProcessingConnectedDevices = true;
+                            OnDevice_Connected(connectedDevices);
                         }
                     }
-                    if (disconnectedDevices.Count > 0)
+                    // Check For Disconnected
+                    if (DisconnectedEventStatus)
                     {
-                        isProcessingDisconnectedDevices = true;
-                        OnDevice_Disconnected(disconnectedDevices);
+                        foreach (MY_USBDevice itemOld in Collection[ClassName.MY_USBDevices_OLD].Cast<MY_USBDevice>())
+                        {
+                            bool find = false;
+                            foreach (MY_USBDevice itemNew in Collection[ClassName.MY_USBDevices].Cast<MY_USBDevice>())
+                            {
+                                if (itemOld.DeviceID == itemNew.DeviceID)
+                                {
+                                    find = true;
+                                    break;
+                                }
+                            }
+                            if (!find)
+                            {
+                                disconnectedDevices.Add(itemOld);
+                            }
+                        }
+                        if (disconnectedDevices.Count > 0)
+                        {
+                            isProcessingDisconnectedDevices = true;
+                            OnDevice_Disconnected(disconnectedDevices);
+                        }
                     }
                     // Check For Modified
-                    if (connectedDevices.Count == 0 && disconnectedDevices.Count == 0 && !isProcessingConnectedDevices && !isProcessingDisconnectedDevices && !isProcessingModifiedDevices)
+                    if (ModifiedEventStatus)
                     {
-                        isProcessingModifiedDevices = true;
-                        RunCheckForModifiedAsync();
+                        if (connectedDevices.Count == 0 && disconnectedDevices.Count == 0 && !isProcessingConnectedDevices && !isProcessingDisconnectedDevices && !isProcessingModifiedDevices)
+                        {
+                            isProcessingModifiedDevices = true;
+                            RunCheckForModifiedAsync();
+                        }
                     }
                 });
             }
@@ -105,7 +114,7 @@ public class USBDevicesEventManager
 
     private async Task CheckForModified()
     {
-        await UpdateCollections();
+        await UpdateCollectionsAsync();
         List<ChildsCount> newChildsCount = [];
         List<ChildsCount> oldChildsCount = [];
         List<string> modifiedDevicesID = [];
@@ -121,7 +130,7 @@ public class USBDevicesEventManager
             }),
             Task.Run(() =>
             {
-                foreach (MY_USBDevice item in USBDevicesCollection.Values)
+                foreach (MY_USBDevice item in UsbDevices.Values)
                 {
                     oldChildsCount.Add(new() { Count = item.GetTotlaChilds(), DeviceID = item.DeviceID });
                 }
@@ -158,9 +167,13 @@ public class USBDevicesEventManager
 
     private async void OnDevice_Connected(ThreadSafeObservableCollection<MY_USBDevice> connectedDevices)
     {
-        await UpdateCollections();
+        await UpdateCollectionsAsync();
         foreach (MY_USBDevice item in connectedDevices)
-            UsbDevices.OnDeviceChanged(new USBDevicesEventArgs(AddUSBDeviceToCollection(item), EventTypeEnum.Connected));
+        {
+            MY_USBDevice usbDevice = new(item);
+            UsbDevices.TryAdd(usbDevice, usbDevice);
+            UsbDevices.OnDeviceChanged(new USBDevicesEventArgs(usbDevice, EventTypeEnum.Connected));
+        }
         isProcessingConnectedDevices = false;
     }
     
@@ -171,7 +184,7 @@ public class USBDevicesEventManager
             MY_USBDevice? devic = FindDevice(item.DeviceID);
             if (devic != null)
             {
-                USBDevicesCollection.TryRemove(new KeyValuePair<MY_USBDevice, MY_USBDevice>(devic, devic));
+                UsbDevices.TryRemove(new KeyValuePair<MY_USBDevice, MY_USBDevice>(devic, devic));
                 UsbDevices.OnDeviceChanged(new USBDevicesEventArgs(devic, EventTypeEnum.Disconnected));
             }
         }
@@ -190,8 +203,8 @@ public class USBDevicesEventManager
                     MY_USBDevice? findedDevic = FindDevice(device.DeviceID);
                     if (findedDevic != null)
                     {
-                        USBDevicesCollection.TryRemove(new KeyValuePair<MY_USBDevice, MY_USBDevice>(findedDevic, findedDevic));
-                        USBDevicesCollection.TryAdd(device, device);
+                        UsbDevices.TryRemove(new KeyValuePair<MY_USBDevice, MY_USBDevice>(findedDevic, findedDevic));
+                        UsbDevices.TryAdd(device, device);
                         UsbDevices.OnDeviceChanged(new USBDevicesEventArgs(device, EventTypeEnum.Modified));
                     }
                 }
@@ -202,7 +215,7 @@ public class USBDevicesEventManager
     public MY_USBDevice? FindDevice(string? deviceID)
     {
         MY_USBDevice response = [];
-        foreach (MY_USBDevice item in USBDevicesCollection.Values)
+        foreach (MY_USBDevice item in UsbDevices.Values)
         {
             if (item.DeviceID == deviceID)
             {

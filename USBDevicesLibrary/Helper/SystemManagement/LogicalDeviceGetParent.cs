@@ -2,17 +2,15 @@
 
 namespace USBDevicesLibrary;
 
-public static class LogicalDeviceGetParent
+public static partial class LogicalDeviceGetParent
 {
     public static string? GetParent(string deviceID)
     {
-        UInt32 devInst;
-        UInt32 parent;
         string? parentDeviceID = string.Empty;
-        ConfigurationManagerReturnStatusCodes errorCode = (ConfigurationManagerReturnStatusCodes)CM_Locate_DevNode(out devInst, deviceID, 0);
+        ConfigurationManagerReturnStatusCodes errorCode = (ConfigurationManagerReturnStatusCodes)CM_Locate_DevNodeW(out uint devInst, deviceID, 0);
         if (errorCode == ConfigurationManagerReturnStatusCodes.CR_SUCCESS)
         {
-            errorCode = (ConfigurationManagerReturnStatusCodes)CM_Get_Parent(out parent, devInst, 0);
+            errorCode = (ConfigurationManagerReturnStatusCodes)CM_Get_Parent(out uint parent, devInst, 0);
             if (errorCode == ConfigurationManagerReturnStatusCodes.CR_SUCCESS)
             {
                 parentDeviceID = GetDeviceId(parent);
@@ -23,12 +21,10 @@ public static class LogicalDeviceGetParent
 
     public static List<string> GetChilds(string deviceID)
     {
-        List<string> childDevicesID = new List<string>();
-        UInt32 devInst;
-        CM_Locate_DevNode(out devInst, deviceID, 0);
+        List<string> childDevicesID = [];
+        CM_Locate_DevNodeW(out uint devInst, deviceID, 0);
 
-        UInt32 devInstChild;
-        ConfigurationManagerReturnStatusCodes errorCode = (ConfigurationManagerReturnStatusCodes)CM_Get_Child(out devInstChild, devInst, 0);
+        ConfigurationManagerReturnStatusCodes errorCode = (ConfigurationManagerReturnStatusCodes)CM_Get_Child(out uint devInstChild, devInst, 0);
         if (errorCode == ConfigurationManagerReturnStatusCodes.CR_SUCCESS)
         {
             string? childID = GetDeviceId(devInstChild);
@@ -36,7 +32,7 @@ public static class LogicalDeviceGetParent
             {
                 childDevicesID.Add(childID);
 
-                UInt32 devInstSibling = devInstChild;
+                uint devInstSibling = devInstChild;
                 while (true)
                 {
                     errorCode = (ConfigurationManagerReturnStatusCodes)CM_Get_Sibling(out devInstSibling, devInstSibling, 0);
@@ -60,7 +56,7 @@ public static class LogicalDeviceGetParent
         Int32 bufferSize = 1024;
         IntPtr buffer = Marshal.AllocHGlobal(bufferSize);
         string? deviceId = string.Empty;
-        ConfigurationManagerReturnStatusCodes errorCode = (ConfigurationManagerReturnStatusCodes)CM_Get_Device_ID(devInst, buffer, bufferSize, 0);
+        ConfigurationManagerReturnStatusCodes errorCode = (ConfigurationManagerReturnStatusCodes)CM_Get_Device_IDW(devInst, buffer, bufferSize, 0);
         if (ConfigurationManagerReturnStatusCodes.CR_SUCCESS == errorCode)
         {
             deviceId = Marshal.PtrToStringAuto(buffer);
@@ -77,21 +73,21 @@ public static class LogicalDeviceGetParent
         CR_INVALID_POINTER = 0x00000003,
         CR_INVALID_FLAG = 0x00000004,
         CR_INVALID_DEVNODE = 0x00000005,
-        CR_INVALID_DEVINST = 0x00000005,   // CR_INVALID_DEVNODE
+        //CR_INVALID_DEVINST = 0x00000005,   
         CR_INVALID_RES_DES = 0x00000006,
         CR_INVALID_LOG_CONF = 0x00000007,
         CR_INVALID_ARBITRATOR = 0x00000008,
         CR_INVALID_NODELIST = 0x00000009,
         CR_DEVNODE_HAS_REQS = 0x0000000A,
-        CR_DEVINST_HAS_REQS = 0x0000000A,   // CR_DEVNODE_HAS_REQS
+        //CR_DEVINST_HAS_REQS = 0x0000000A,   
         CR_INVALID_RESOURCEID = 0x0000000B,
         CR_DLVXD_NOT_FOUND = 0x0000000C,   // WIN 95 ONLY
         CR_NO_SUCH_DEVNODE = 0x0000000D,
-        CR_NO_SUCH_DEVINST = 0x0000000D,   // CR_NO_SUCH_DEVNODE
+        //CR_NO_SUCH_DEVINST = 0x0000000D,   
         CR_NO_MORE_LOG_CONF = 0x0000000E,
         CR_NO_MORE_RES_DES = 0x0000000F,
         CR_ALREADY_SUCH_DEVNODE = 0x00000010,
-        CR_ALREADY_SUCH_DEVINST = 0x00000010,   //CR_ALREADY_SUCH_DEVNODE
+        //CR_ALREADY_SUCH_DEVINST = 0x00000010,   
         CR_INVALID_RANGE_LIST = 0x00000011,
         CR_INVALID_RANGE = 0x00000012,
         CR_FAILURE = 0x00000013,
@@ -138,20 +134,20 @@ public static class LogicalDeviceGetParent
         NUM_CR_RESULTS = 0x0000003C,
     }
 
-    [DllImport("setupapi.dll", CharSet = CharSet.Auto, SetLastError = true)]
-    public static extern Int32 CM_Get_Device_ID(UInt32 devInst, IntPtr buffer, Int32 bufferLen, Int32 flags);
+    [LibraryImport("setupapi.dll", SetLastError = true)]
+    public static partial int CM_Get_Device_IDW(uint devInst, IntPtr buffer, int bufferLen, int flags);
 
-    [DllImport("setupapi.dll", SetLastError = true)]
-    public static extern Int32 CM_Get_Parent(out UInt32 devInstParent, UInt32 devInst, Int32 flags);
+    [LibraryImport("setupapi.dll", SetLastError = true)]
+    public static partial int CM_Get_Parent(out uint devInstParent, uint devInst, int flags);
 
-    [DllImport("setupapi.dll", CharSet = CharSet.Auto, SetLastError = true)]
-    public static extern Int32 CM_Locate_DevNode(out UInt32 devInst, string pDeviceID, int flags);
+    [LibraryImport("setupapi.dll", SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
+    public static partial int CM_Locate_DevNodeW(out uint devInst, string pDeviceID, int flags);
 
-    [DllImport("setupapi.dll", SetLastError = true)]
-    public static extern Int32 CM_Get_Child(out UInt32 devInstChild, UInt32 devInst, Int32 ulFlags);
+    [LibraryImport("setupapi.dll", SetLastError = true)]
+    public static partial int CM_Get_Child(out uint devInstChild, uint devInst, uint ulFlags);
 
-    [DllImport("setupapi.dll", SetLastError = true)]
-    public static extern Int32 CM_Get_Sibling(out UInt32 devInstSibling, UInt32 devInst, Int32 ulFlags);
+    [LibraryImport("setupapi.dll", SetLastError = true)]
+    public static partial int CM_Get_Sibling(out uint devInstSibling, uint devInst, int ulFlags);
 
 
 }

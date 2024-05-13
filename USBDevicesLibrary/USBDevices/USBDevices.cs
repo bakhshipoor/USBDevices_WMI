@@ -5,14 +5,19 @@ using static USBDevicesLibrary.WMIClassesNameEnum;
 
 namespace USBDevicesLibrary;
 
-public partial class USBDevices
+public class USBDevices : ThreadSafeDictionary<MY_USBDevice, MY_USBDevice>
 {
     public event EventHandler? InitialCollectionsComplete;
     public event EventHandler<USBDevicesEventArgs>? DeviceChanged;
 
     public USBDevices()
     {
-        USBDevicesCollection = [];
+        Clear();
+
+        EnableConnectedEvents();
+        EnableDisconnectedEvents();
+        EnableModifiedEvents();
+        DisableFilterDevice();
 
         Collection = [];
         Init_Collection_Dictionary();
@@ -24,15 +29,14 @@ public partial class USBDevices
 
         InitialCompleted = false;
         UsbDevicesEventManager = new(this);
-
-
     }
-    private USBDevicesEventManager UsbDevicesEventManager { get; set; }
-    public bool InitialCompleted;
 
-    public async void InitialCollections()
+    private USBDevicesEventManager UsbDevicesEventManager;
+    internal bool InitialCompleted;
+
+    public async void Start()
     {
-        UpdateWMICollection_MY_USBDevices();
+        UpdateWMICollectionByName(ClassName.MY_USBDevices);
         UpdateCollection_MY_USBDevices();
         await UpdateUSBDevicesAsync();
         OnInitialCollectionsComplete(EventArgs.Empty);
@@ -41,16 +45,89 @@ public partial class USBDevices
 
     private async Task UpdateUSBDevicesAsync()
     {
-        await UpdateCollections();
+        await UpdateCollectionsAsync();
         await Task.Run(() =>
         {
-            USBDevicesCollection.Clear();
+            Clear();
             foreach (MY_USBDevice item in Collection[ClassName.MY_USBDevices].Cast<MY_USBDevice>())
-                OnDeviceChanged(new USBDevicesEventArgs(AddUSBDeviceToCollection(item), EventTypeEnum.Connected));
+            {
+                MY_USBDevice usbDevice = new(item);
+                TryAdd(usbDevice, usbDevice);
+                OnDeviceChanged(new USBDevicesEventArgs(usbDevice, EventTypeEnum.Connected));
+            }
         });
     }
 
-    
+    public void EnableConnectedEvents()
+    {
+        ConnectedEventStatus = true;
+    }
+
+    public void DisableConnectedEvents()
+    {
+        ConnectedEventStatus = false;
+    }
+
+    public void EnableDisconnectedEvents()
+    {
+        DisconnectedEventStatus = true;
+    }
+
+    public void DisableDisconnectedEvents()
+    {
+        DisconnectedEventStatus = false;
+    }
+
+    public void EnableModifiedEvents()
+    {
+        ModifiedEventStatus = true;
+    }
+
+    public void DisableModifiedEvents()
+    {
+        ModifiedEventStatus = false;
+    }
+
+    public void EnableFilterDevice()
+    {
+        FilterDeviceStatus = true;
+    }
+
+    public void DisableFilterDevice()
+    {
+        FilterDeviceStatus = false;
+    }
+
+    public bool AddDeviceToFilter(string vid, string pid)
+    {
+        USBDevicesFilter devicesFilter = new();
+        bool find = false;
+        foreach (USBDevicesFilter item in USBDevicesFilterList)
+            if (item.VID == vid && item.PID == pid)
+            {
+                find = true;
+                break;
+            }
+        if (!find)
+            USBDevicesFilterList.Add(new USBDevicesFilter{ VID = vid, PID = pid});
+        return find;
+    }
+
+    public bool RemoveDeviceFromFilter(string vid, string pid)
+    {
+        USBDevicesFilter devicesFilter = new();
+        bool find = false;
+        foreach (USBDevicesFilter item in USBDevicesFilterList)
+            if (item.VID == vid && item.PID == pid)
+            {
+                find = true;
+                devicesFilter = item;
+                break;
+            }
+        if (find)
+            USBDevicesFilterList.Remove(devicesFilter);
+        return find;
+    }
 
     protected virtual void OnInitialCollectionsComplete(EventArgs e)
     {
@@ -61,24 +138,4 @@ public partial class USBDevices
     {
         DeviceChanged?.Invoke(this, e);
     }
-
-    /*
-    private void test()
-    {
-        ObjectQuery query = new(@"SELECT * FROM  Win32_Keyboard ");
-        ManagementObjectSearcher searcher = new(query);
-        Debug.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++");
-        int counter = 0;
-        foreach (ManagementObject wmi_HD in searcher.Get().Cast<ManagementObject>())
-        {
-            counter++;
-            foreach (PropertyData property in wmi_HD.Properties)
-            {
-                Debug.WriteLine($"{property.Name} = {property.Value}");
-            }
-            Debug.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++");
-        }
-    }
-    //*/
-
 }

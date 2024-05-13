@@ -10,7 +10,7 @@ using static USBDevicesLibrary.USBDevicesInterfacesEnum;
 
 namespace USBDevicesLibrary;
 
-public static class USBDevicesInterfaces
+internal static class USBDevicesInterfaces
 {
     public static void Win32_PnPEntity_GetChilds(Win32_PnPEntity pnpEntity)
     {
