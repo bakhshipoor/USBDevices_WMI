@@ -2,10 +2,10 @@
 Detect And Event All USB Changes and Filter Devices
 
 
-- Using System.Management Nuget package
+- Using `System.Management` Nuget package
 - All data get from WMI in system management
-- Using Concurrent Collections (System.Collections.Concurrent) : ConcurrentBag, ConcurrentDictionary
-- Using << setupapi.dll >> for finding device parent and childs. so you cant use this library remotely such as WMI instructions.
+- Using Concurrent Collections (System.Collections.Concurrent) : `ConcurrentBag`, `ConcurrentDictionary`
+- Using `setupapi.dll` for finding device parent and childs. so you cant use this library remotely such as WMI instructions.
 - .Net Core 8.0
 - Windows Desktop 
 - List of USB Devices in pc
