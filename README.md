@@ -1,4 +1,4 @@
-# USB Devices Library
+# USB Devices Library (WMI)
 Detect And Event All USB Changes and Filter Devices
 
 
